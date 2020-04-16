@@ -26,7 +26,8 @@ def dilate(img, times):
 
 				if padding_type == 'zero':
 					padded_img = np.zeros((H+kernel_size-1, W+kernel_size-1, C), dtype=np.float)
-					padded_img[kernel_size-1-(kernel_size-1)//2:H+kernel_size-1-(kernel_size-1)//2, kernel_size-1-(kernel_size-1)//2:W+kernel_size-1-(kernel_size-1)//2,:] = img
+					padded_img[kernel_size-1-(kernel_size-1)//2:H+kernel_size-1-(kernel_size-1)//2, \
+						   kernel_size-1-(kernel_size-1)//2:W+kernel_size-1-(kernel_size-1)//2,:] = img
 
 				elif padding_type == 'replicate':
 					pass
@@ -42,7 +43,6 @@ def dilate(img, times):
 
 		return out.astype(np.uint8)
 
-
 	def Otsu(img):
 
 		H, W, C = img.shape
@@ -53,10 +53,10 @@ def dilate(img, times):
 
 		out =  0.299 * R + 0.587 * G + 0.114 * B
 		out = out.astype(np.uint8)
-
 		best_threshold = np.min(out)
 		intra_viarance = 0
 		total_pixels = H*W
+		
 		for gray_scale in range(np.min(out), np.max(out)+1):
 			w0 = len(out[out>gray_scale].tolist()) / total_pixels
 			w1 = 1 - w0
@@ -70,7 +70,6 @@ def dilate(img, times):
 		out[out>=best_threshold] = 255
 
 		return out
-
 
 	def dilate_filter(cropped):
 
