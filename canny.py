@@ -43,7 +43,7 @@ def my_conv(img, kernel, kernel_size=3, padding='same', padding_type='replicate'
 			for y in range(H):
 				for x in range(W):
 					for c in range(C):
-						out[y,x,c] = func(padded_img[y:y+kernel_size, x:x+kernel_size, c])
+						out[y,x,c] = np.sum((padded_img[y:y+kernel_size, x:x+kernel_size, c])*kernel)
 
 	return out
 
