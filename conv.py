@@ -69,10 +69,10 @@ def my_conv(img, func, kernel_size=3, padding='same', padding_type='zero', strid
 				for i in range(W+kernel_size-1-(kernel_size-1)//2, W+kernel_size-1):
 					padded_img[:, i, :] = padded_img[:, W+kernel_size-1-(kernel_size-1)//2-1,:]
 
-			for y in range(H):
-				for x in range(W):
+			for i,y in enumerate(range(math.ceil(H/stride))):
+				for j,x in enumerate(range(math.ceil(W/stride))):
 					for c in range(C):
-						out[x,y,c] = func(padded_img[x:x+kernel_size, y:y+kernel_size, c])
+						out[y,x,c] = func(padded_img[i*stride:i*stride+kernel_size, j*stride:j*stride+kernel_size, c])
 		else:
 
 			out = np.zeros((math.ceil(H/stride), math.ceil(W/stride), C), dtype=np.uint8)
@@ -103,10 +103,16 @@ def my_conv(img, func, kernel_size=3, padding='same', padding_type='zero', strid
 			for i,y in enumerate(range(math.ceil(H/stride))):
 				for j,x in enumerate(range(math.ceil(W/stride))):
 					for c in range(C):
-						out[x,y,c] = func(padded_img[j*stride:j*stride+kernel_size, i*stride:i*stride+kernel_size, c])
+						out[y,x,c] = func(padded_img[i*stride:i*stride+kernel_size, j*stride:j*stride+kernel_size, c])
 
 
-	if padding == 'valid':
-		pass
+	elif padding == 'valid':
+
+		if stride == 1:
+			out = np.zeros([H-kernel_size+1, W-kernel_size+1, C], dtype = np.float)
+			for y in range(H-kernel_size+1):
+				for x in range(W-kernel_size+1):
+					for c in range(C):
+						out[y,x,c] = func(img[y:y+kernel_size, x:x+kernel_size, c])
 
 	return out
