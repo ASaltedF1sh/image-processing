@@ -43,7 +43,7 @@ def hat(img, times = 3, op = 'top'):
 				for y in range(H):
 					for x in range(W):
 						for c in range(C):
-							out[y,x,c] = filter(padded_img[x:x+kernel_size, y:y+kernel_size, c])
+							out[y,x,c] = filter(padded_img[y:y+kernel_size, x:x+kernel_size, c])
 			else:
 				pass
 		else:
