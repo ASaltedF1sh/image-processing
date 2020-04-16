@@ -42,6 +42,7 @@ def draw_line(vote_result, img):
 	H, W, C= img.shape
 	index = np.where(vote_result == 255)
 	bias = (np.sqrt(H ** 2 + W ** 2)).astype(np.int)
+	out = img.copy()
 
 	for y, x in zip(index[0], index[1]):
 		r = y - bias
@@ -52,11 +53,11 @@ def draw_line(vote_result, img):
 			if x!=0:
 				h0 = int(-i / np.tan(theta) + r / np.sin(theta))
 				if h0 <= H-1 and h0 >= 0:
-					img[h0, i] = [0, 0, 255]
+					out[h0, i] = [0, 0, 255]
 
 		for j in range(H):
 			if x!= 90:
 				w0 = int(-j * np.tan(theta) + r / np.cos(theta))
 				if w0 <= W-1 and w0 >= 0:
-					img[j, w0] = [0, 0, 255]
-	return img 
+					out[j, w0] = [0, 0, 255]
+	return out 
