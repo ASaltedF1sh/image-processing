@@ -35,7 +35,7 @@ def NMS(curve, K = 20):
 	new_curve = np.zeros_like(curve, dtype = np.uint8)
 	new_curve[ind_x, ind_y] = 255
 
-	return 	new_curve
+	return new_curve
 
 def draw_line(vote_result, img):
 
