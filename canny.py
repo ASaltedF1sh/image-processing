@@ -43,7 +43,7 @@ def my_conv(img, kernel, kernel_size=3, padding='same', padding_type='replicate'
 			for y in range(H):
 				for x in range(W):
 					for c in range(C):
-						out[x,y,c] = np.sum((padded_img[x:x+kernel_size, y:y+kernel_size, c])*kernel)
+						out[y,x,c] = func(padded_img[y:y+kernel_size, x:x+kernel_size, c])
 
 	return out
 
@@ -109,8 +109,8 @@ def NMS(amp, ang):
 
 	H, W ,C= amp.shape
 	new_amp = amp.copy()
-	for y in range(H):
-		for x in range(W):
+	for x in range(H):
+		for y in range(W):
 			if ang[x,y] == 1:
 				if y-1>=0 and y+1 <= H-1:
 					if amp[x,y] != max(amp[x,y-1], amp[x,y], amp[x,y+1]):
@@ -136,8 +136,8 @@ def Hysteresis_thresholding(amp, HT=150, LT=100):
 	# cv2.destroyAllWindows()
 	H, W ,C= amp.shape
 	new_amp = amp.copy().astype(np.uint8)
-	for y in range(H):
-		for x in range(W):
+	for x in range(H):
+		for y in range(W):
 			if amp[x,y]>= HT:
 				new_amp[x,y] = 255
 			elif amp[x,y]<= LT:
