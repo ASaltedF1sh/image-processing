@@ -11,6 +11,6 @@ def nearest_neighbor_inter(img, ax = 1, ay = 1):
 	for y in range(round(H*ay)):
 		for x in range(round(W*ax)):
 			for c in range(C):
-				out[x,y,c] = img[int(x//ax), int(y//ay),  c]
+				out[y,x,c] = img[int(y//ay), int(x//ax),  c]
 
 	return out.astype(np.uint8)
