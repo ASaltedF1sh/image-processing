@@ -1,1 +1,1 @@
-Some image processing algorithms implemented using python
+Some image processing algorithms implemented in python
