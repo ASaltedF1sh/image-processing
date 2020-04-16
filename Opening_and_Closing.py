@@ -33,7 +33,7 @@ def Operation(img, times, op = 'opening'):
 				for y in range(H):
 					for x in range(W):
 						for c in range(C):
-							out[x,y,c] = filter(padded_img[x:x+kernel_size, y:y+kernel_size, c])
+							out[y,x,c] = filter(padded_img[y:y+kernel_size, x:x+kernel_size, c])
 			else:
 				pass
 		else:
